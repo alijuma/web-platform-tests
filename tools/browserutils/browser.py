@@ -326,3 +326,28 @@ class Servo(Browser):
 
     def version(self, root):
         return None
+
+class Safari(Browser):
+    """Safari-specific interface.
+
+    Includes installation, webdriver installation, and wptrunner setup methods.
+    """
+
+    product = "safari"
+    requirements = "requirements_safari.txt"
+
+    def install(self, platform, dest=None):
+        """Install Safari."""
+        raise NotImplementedError
+
+    def find_binary(self):
+        raise NotImplementedError
+
+    def find_webdriver(self):
+        return "/usr/bin/safaridriver"
+
+    def install_webdriver(self):
+        raise NotImplementedError
+
+    def version(self, root):
+        return None

@@ -231,8 +231,11 @@ class SeleniumRefTestExecutor(RefTestExecutor):
     def do_test(self, test):
         self.logger.info("Test requires OS-level window focus")
 
-        self.protocol.webdriver.set_window_size(600, 600)
-
+        # http://autosqa.com/blog/index.php/2017/04/13/workaround-for-set-window-size-issue-on-safari-10-1-webdriver/
+        # self.protocol.webdriver.set_window_size(600, 600)
+        x, y = 30, 30
+        cmd = "osascript -e 'tell application \"Safari\" to set bounds of front window to {%d, %d, %d, %d}'" \
+                 % (x, y, 600+x, 600+y)
         result = self.implementation.run_test(test)
 
         return self.convert_result(test, result)

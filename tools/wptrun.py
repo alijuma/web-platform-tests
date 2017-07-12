@@ -256,12 +256,28 @@ def setup_servo(venv, kwargs, prompt=True):
     args_servo(venv, kwargs, servo, prompt)
     venv.install_requirements(os.path.join(wpt_root, "tools", "wptrunner", servo.requirements))
 
+def args_safari(venv, kwargs, safari, prompt=True):
+    if kwargs["webdriver_binary"] is None:
+        kwargs["webdriver_binary"] = "/usr/bin/safaridriver"
+
+    if kwargs["test_types"] is None:
+        kwargs["test_types"] = ["testharness", "reftest"]
+
+    if "wdspec" in kwargs["test_types"]:
+        kwargs["test_types"].remove("wdspec")
+
+
+def setup_safari(venv, kwargs, prompt=True):
+    safari = browser.Safari()
+    args_safari(venv, kwargs, safari, prompt)
+    venv.install_requirements(os.path.join(wpt_root, "tools", "wptrunner", safari.requirements))
 
 product_setup = {
     "firefox": setup_firefox,
     "chrome": setup_chrome,
     "edge": setup_edge,
-    "servo": setup_servo
+    "servo": setup_servo,
+    "safari": setup_safari
 }
 
 
