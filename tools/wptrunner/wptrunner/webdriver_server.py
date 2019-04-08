@@ -9,7 +9,7 @@ import traceback
 import mozprocess
 
 
-__all__ = ["SeleniumServer", "ChromeDriverServer", "EdgeChromiumDriverServer", "OperaDriverServer",
+__all__ = ["SeleniumServer", "ChromeDriverServer", "CriOSDriverServer", "EdgeChromiumDriverServer", "OperaDriverServer",
            "GeckoDriverServer", "InternetExplorerDriverServer", "EdgeDriverServer",
            "ServoDriverServer", "WebKitDriverServer", "WebDriverServer"]
 
@@ -137,6 +137,15 @@ class EdgeChromiumDriverServer(WebDriverServer):
         return [self.binary,
                 cmd_arg("port", str(self.port)),
                 cmd_arg("url-base", self.base_path) if self.base_path else ""] + self._args
+
+class CriOSDriverServer(WebDriverServer):
+    def __init__(self, logger, binary="criosdriver", port=None, args=None):
+        WebDriverServer.__init__(
+            self, logger, binary, port=port, args=args)
+
+    def make_command(self):
+        return [self.binary,
+                "--port=%s" % str(self.port)] + self._args
 
 class EdgeDriverServer(WebDriverServer):
     def __init__(self, logger, binary="microsoftwebdriver.exe", port=None,

@@ -310,6 +310,20 @@ class ChromeAndroid(BrowserSetup):
                 raise WptrunError("Unable to locate or install chromedriver binary")
 
 
+class ChromeiOS(BrowserSetup):
+    name = "chrome_ios"
+    browser_cls = browser.ChromeiOS
+
+    def setup_kwargs(self, kwargs):
+        if kwargs["webdriver_binary"] is None:
+            webdriver_binary = self.browser.find_webdriver()
+
+            if webdriver_binary:
+                logger.info("Using webdriver binary %s" % webdriver_binary)
+                kwargs["webdriver_binary"] = webdriver_binary
+            else:
+                raise WptrunError("Unable to locate or install chromedriver binary")
+
 class Opera(BrowserSetup):
     name = "opera"
     browser_cls = browser.Opera
@@ -499,6 +513,7 @@ product_setup = {
     "firefox": Firefox,
     "chrome": Chrome,
     "chrome_android": ChromeAndroid,
+    "chrome_ios": ChromeiOS,
     "edgechromium": EdgeChromium,
     "edge": Edge,
     "edge_webdriver": EdgeWebDriver,
