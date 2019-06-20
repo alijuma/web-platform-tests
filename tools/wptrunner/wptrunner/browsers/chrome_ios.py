@@ -51,6 +51,8 @@ class ChromeiOSBrowser(Browser):
     ``wptrunner.webdriver.CriOSDriverServer``.
     """
 
+    init_timeout = 120
+
     def __init__(self, logger, webdriver_binary="chromedriver",
                  webdriver_args=None):
         """Creates a new representation of Chrome."""

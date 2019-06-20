@@ -248,7 +248,7 @@ def get_free_port():
             s.close()
 
 
-def wait_for_service(addr, timeout=15):
+def wait_for_service(addr, timeout=60):
     """Waits until network service given as a tuple of (host, port) becomes
     available or the `timeout` duration is reached, at which point
     ``socket.error`` is raised."""
